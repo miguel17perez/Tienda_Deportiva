@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #232f3e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Estilos del carrito */
+        .contenedor-carrito {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabla-carrito {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tabla-carrito th, .tabla-carrito td {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .tabla-carrito th {
+            background-color: #ff9900;
+            color: white;
+        }
+
+        .btn-eliminar {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-eliminar:hover {
+            background-color: darkred;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-comprar {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .btn-comprar:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background-color: #232f3e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <h1>Indumentaria Deportiva</h1>
+            <input type="text" placeholder="Buscar productos..." class="search-bar">
+            <nav>
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="productos.html" class="nav-link">Productos</a>
+                <a href="login.html" class="nav-link">Administrador</a>
+                <a href="carrito.html" class="nav-link carrito">🛒 Carrito</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="contenedor-carrito">
+            <h2>Carrito de Compras</h2>
+            <table class="tabla-carrito">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-carrito">
+                    <!-- Los productos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+            <p class="total">Total: <span id="total-carrito">$0</span></p>
+            <button class="btn-comprar">Finalizar Compra</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Indumentaria Deportiva</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const carrito = [
+                { nombre: "Camiseta Deportiva", precio: 25, cantidad: 1 },
+                { nombre: "Zapatillas Running", precio: 75, cantidad: 1 },
+                { nombre: "Shorts Deportivo", precio: 50, cantidad: 1 }
+            ];
+
+            function actualizarCarrito() {
+                const listaCarrito = document.getElementById("lista-carrito");
+                const totalCarrito = document.getElementById("total-carrito");
+                listaCarrito.innerHTML = "";
+                let total = 0;
+
+                carrito.forEach((producto, index) => {
+                    const fila = document.createElement("tr");
+                    fila.innerHTML = `
+                        <td>${producto.nombre}</td>
+                        <td>$${producto.precio}</td>
+                        <td>
+                            <input type="number" value="${producto.cantidad}" min="1" class="cantidad" data-index="${index}">
+                        </td>
+                        <td>$${producto.precio * producto.cantidad}</td>
+                        <td><button class="btn-eliminar" data-index="${index}">X</button></td>
+                    `;
+                    listaCarrito.appendChild(fila);
+                    total += producto.precio * producto.cantidad;
+                });
+
+                totalCarrito.textContent = `$${total}`;
+            }
+
+            document.getElementById("lista-carrito").addEventListener("click", function(event) {
+                if (event.target.classList.contains("btn-eliminar")) {
+                    const index = event.target.getAttribute("data-index");
+                    carrito.splice(index, 1);
+                    actualizarCarrito();
+                }
+            });
+
+            document.getElementById("lista-carrito").addEventListener("change", function(event) {
+                if (event.target.classList.contains("cantidad")) {
+                    const index = event.target.getAttribute("data-index");
+                    carrito[index].cantidad = parseInt(event.target.value);
+                    actualizarCarrito();
+                }
+            });
+
+            actualizarCarrito();
+        });
+    </script>
+
+</body>
+</html>

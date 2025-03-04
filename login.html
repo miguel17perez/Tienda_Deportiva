@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Administrador</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <script>
+    
+
+        function logout() {
+            localStorage.removeItem("userRole");
+            window.location.href = "index.html";
+        }
+    </script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: #232f3e;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        .navbar nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: gray;
+            margin-bottom: 20px;
+        }
+
+        /* Imagen de perfil */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+        }
+
+        /* Sección de perfil */
+        .profile-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .about, .details {
+            width: 45%;
+            text-align: left;
+        }
+
+        .about p, .details p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .details strong {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        /* Iconos de redes sociales */
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #333;
+        }
+
+        /* Opciones de administrador */
+        .admin-options {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .admin-options button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #ff9900;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .admin-options button:hover {
+            background-color: #e68a00;
+        }
+
+        /* Botón de cierre de sesión */
+        .logout-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .logout-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <header class="navbar">
+        <h1>Administrador</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="productos.html">Productos</a>
+            <a href="login.html">Administrador</a>
+            <a href="carrito.html">🛒 Carrito</a>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <h1>Perfil</h1>
+        <p class="subtitle">Bienvenido, Administrador</p>
+
+        <img src="../assets/img/logo.png" alt="Foto de perfil" class="profile-image">
+
+        <div class="profile-section">
+            <div class="about">
+                <h3>Acerca de mí</h3>
+                <p>
+                    Soy un desarrollador full stack con experiencia en PHP, JavaScript y bases de datos.
+                    Me apasiona la tecnología y crear soluciones innovadoras.
+                </p>
+            </div>
+
+            <div class="details">
+                <h3>Detalles</h3>
+                <p><strong>Nombre:</strong>Miguel Preciado</p>
+                <p><strong>Rol:</strong> Administrador</p>
+            </div>
+        </div>
+
+        <!-- Opciones de administración -->
+        <div class="admin-options">
+            <button onclick="window.location.href='productos.html'">Administrar Productos</button>
+            <button onclick="window.location.href='carrito.html'">Gestionar Pedidos</button>
+            <button onclick="window.location.href='usuarios.html'">Ver Usuarios</button>
+        </div>
+
+        <!-- Botón de cerrar sesión -->
+        <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+</body>
+</html>

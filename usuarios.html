@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Usuarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4a261;
+            color: white;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 2px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: #2a9d8f;
+            color: white;
+        }
+        .delete-btn {
+            background-color: #e76f51;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gestión de Usuarios</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
+            <tr>
+                <td>1</td>
+                <td>Miguel Preciado</td>
+                <td>Miguel@gmail.com</td>
+                <td>
+                    <button class="edit-btn">Editar</button>
+                    <button class="delete-btn">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Agregar Usuario</h3>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Nombre" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let table = document.getElementById('userTable');
+            let newRow = table.insertRow();
+            newRow.innerHTML = `<td>${table.rows.length}</td><td>${name}</td><td>${email}</td>
+                <td><button class='edit-btn'>Editar</button>
+                <button class='delete-btn' onclick='deleteRow(this)'>Eliminar</button></td>`;
+            document.getElementById('userForm').reset();
+        });
+        
+        function deleteRow(button) {
+            let row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>
